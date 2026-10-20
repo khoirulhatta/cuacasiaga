@@ -1,0 +1,32 @@
+[
+    {
+        "nama": "Palangka Raya",
+        "provinsi": "Kalimantan Tengah",
+        "lat": -2.21,
+        "lon": 113.92
+    },
+    {
+        "nama": "Pontianak",
+        "provinsi": "Kalimantan Barat",
+        "lat": -0.02,
+        "lon": 109.34
+    },
+    {
+        "nama": "Banjarmasin",
+        "provinsi": "Kalimantan Selatan",
+        "lat": -3.32,
+        "lon": 114.59
+    },
+    {
+        "nama": "Samarinda",
+        "provinsi": "Kalimantan Timur",
+        "lat": -0.50,
+        "lon": 117.15
+    },
+    {
+        "nama": "Balikpapan",
+        "provinsi": "Kalimantan Timur",
+        "lat": -1.24,
+        "lon": 116.83
+    }
+]
