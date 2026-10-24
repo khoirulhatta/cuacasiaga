@@ -1,0 +1,649 @@
+/* ==========================================================
+   CuacaSiaga Indonesia - style.css (Prototype 1)
+   Urutan: 1 Variabel warna dan font, 2 Dasar, 3 Header,
+   4 Lokasi, 5 Cuaca dan kewaspadaan, 6 Prakiraan, 7 Peta,
+   8 Laporan warga, 9 Footer, 10 Layar lebar
+   ========================================================== */
+
+/* ---------- 1. Variabel (ubah warna di sini, berlaku ke seluruh halaman) ---------- */
+:root {
+    --gambut: #14302b;
+    /* hijau gelap seperti air sungai gambut */
+    --kabut: #eff3f1;
+    /* latar halaman, abu kehijauan seperti kabut */
+    --kertas: #ffffff;
+    --garis: #c9d4cf;
+    --teks: #1b2a27;
+    --lembut: #4f625d;
+    --hujan: #1f6c86;
+    --suhu-bar: #d9822b;
+
+    /* skala kewaspadaan */
+    --rendah: #3b8453;
+    --sedang: #e3b53b;
+    --tinggi: #ba5c14;
+    --sangat: #b3322d;
+
+    --font-judul: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-isi: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- 2. Dasar ---------- */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--kabut);
+    color: var(--teks);
+    font-family: var(--font-isi);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-judul);
+    line-height: 1.2;
+    margin: 0;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+h3 {
+    font-size: 1.1rem;
+}
+
+p {
+    margin: 0 0 0.75rem;
+}
+
+a {
+    color: var(--hujan);
+}
+
+.bungkus {
+    max-width: 1080px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+}
+
+.meta {
+    color: var(--lembut);
+    font-size: 0.85rem;
+    margin: 0.5rem 0 0;
+}
+
+:focus-visible {
+    outline: 3px solid var(--hujan);
+    outline-offset: 2px;
+}
+
+/* ---------- 3. Header ---------- */
+.situs-header {
+    background: var(--gambut);
+    color: #fff;
+}
+
+.situs-header :focus-visible {
+    outline-color: #fff;
+}
+
+.header-isi {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    padding-block: 0.9rem;
+}
+
+.merek {
+    font-family: var(--font-judul);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+}
+
+.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu a {
+    color: #d9e6e1;
+    text-decoration: none;
+    padding-block: 0.25rem;
+}
+
+.menu a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.aksi-header {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+.tombol {
+    min-height: 44px;
+    padding: 0 1rem;
+    border: 1.5px solid #9fb8b0;
+    border-radius: 4px;
+    background: transparent;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.tombol-utama {
+    background: var(--tinggi);
+    border-color: var(--tinggi);
+    color: #fff;
+}
+
+.tombol:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* ---------- 4. Catatan data contoh dan pilih lokasi ---------- */
+.catatan-data {
+    margin-top: 1rem;
+    padding-block: 0.6rem;
+    background: #fff6d8;
+    border-left: 4px solid var(--sedang);
+    font-size: 0.9rem;
+}
+
+.lokasi {
+    margin-top: 1.25rem;
+}
+
+.judul-halaman {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    margin-bottom: 1rem;
+}
+
+.pilih-lokasi label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.pilih-lokasi select {
+    width: 100%;
+    max-width: 28rem;
+    min-height: 44px;
+    padding: 0 0.75rem;
+    border: 1.5px solid var(--lembut);
+    border-radius: 4px;
+    background: var(--kertas);
+    color: var(--teks);
+    font: inherit;
+}
+
+/* ---------- 5. Cuaca saat ini dan kewaspadaan ---------- */
+.utama-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.cuaca,
+.waspada {
+    padding: 1.5rem;
+    border-radius: 4px;
+}
+
+.cuaca {
+    background: var(--gambut);
+    color: #eaf3f0;
+}
+
+.cuaca h2 {
+    margin-bottom: 1rem;
+}
+
+.cuaca .meta {
+    color: #b6ccc5;
+}
+
+.suhu {
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    line-height: 1;
+}
+
+.angka-suhu {
+    font-family: var(--font-judul);
+    font-size: 5rem;
+    font-weight: 700;
+}
+
+.satuan-suhu {
+    font-size: 1.75rem;
+    margin-top: 0.6rem;
+}
+
+.kondisi {
+    font-size: 1.15rem;
+    margin: 0.25rem 0 1.25rem;
+}
+
+.rincian {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 0 0 1rem;
+}
+
+.rincian dt {
+    font-size: 0.85rem;
+    color: #b6ccc5;
+}
+
+.rincian dd {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.pesan-kesalahan {
+    padding: 0.75rem 1rem;
+    background: #fdecea;
+    color: #7a1f1b;
+    border-left: 4px solid var(--sangat);
+}
+
+.pesan-kesalahan[hidden] {
+    display: none;
+}
+
+.waspada {
+    background: var(--kertas);
+    border: 1px solid var(--garis);
+}
+
+.waspada h2 {
+    margin-bottom: 0.5rem;
+}
+
+.kategori {
+    font-family: var(--font-judul);
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--tinggi);
+}
+
+.skor-teks {
+    color: var(--lembut);
+    margin: 0.25rem 0 1.75rem;
+}
+
+/* skala: penanda digeser memakai variabel --skor (0 sampai 100) */
+.skala {
+    position: relative;
+    margin: 0 0 1.25rem;
+}
+
+.penanda {
+    position: absolute;
+    top: -14px;
+    left: calc(var(--skor) * 1%);
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid var(--teks);
+}
+
+.segmen {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.segmen li {
+    padding: 0.55rem 0.25rem;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.segmen li:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.segmen li:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+.s-rendah {
+    background: var(--rendah);
+}
+
+.s-sedang {
+    background: var(--sedang);
+    color: #2b2100 !important;
+}
+
+.s-tinggi {
+    background: var(--tinggi);
+}
+
+.s-sangat {
+    background: var(--sangat);
+}
+
+.faktor {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.faktor caption {
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.faktor th,
+.faktor td {
+    padding: 0.45rem 0.5rem;
+    border-bottom: 1px solid var(--garis);
+    text-align: left;
+}
+
+.faktor thead th {
+    font-size: 0.8rem;
+    color: var(--lembut);
+}
+
+.faktor tbody th {
+    font-weight: 500;
+}
+
+.faktor td:last-child,
+.faktor thead th:last-child {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.penjelasan {
+    margin-top: 1rem;
+}
+
+.penjelasan summary {
+    cursor: pointer;
+    font-weight: 600;
+    padding-block: 0.4rem;
+}
+
+.penjelasan p {
+    margin-top: 0.5rem;
+}
+
+/* ---------- 6. Prakiraan per jam dan 7 hari ---------- */
+.prakiraan {
+    margin-top: 2.5rem;
+}
+
+.prakiraan h2 {
+    margin-bottom: 0.4rem;
+}
+
+.petunjuk {
+    color: var(--lembut);
+    font-size: 0.9rem;
+}
+
+.jam {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0 0 2rem;
+    padding: 0 0 0.5rem;
+    overflow-x: auto;
+}
+
+.jam li {
+    flex: 0 0 5.5rem;
+    display: grid;
+    justify-items: center;
+    gap: 0.4rem;
+    padding: 0.75rem 0.5rem;
+    background: var(--kertas);
+    border: 1px solid var(--garis);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.j-waktu {
+    font-size: 0.85rem;
+    color: var(--lembut);
+}
+
+.j-suhu {
+    font-family: var(--font-judul);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.hujan {
+    position: relative;
+    width: 1.25rem;
+    height: 3.5rem;
+    background: #e3ecea;
+    border-radius: 2px;
+}
+
+.hujan::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(var(--p) * 1%);
+    background: var(--hujan);
+    border-radius: 2px;
+}
+
+.j-hujan {
+    font-size: 0.85rem;
+}
+
+.hari {
+    list-style: none;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--garis);
+}
+
+.hari li {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr auto;
+    grid-template-areas:
+        "nama kondisi hujan"
+        "rentang rentang suhu";
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--garis);
+}
+
+.h-nama {
+    grid-area: nama;
+    font-weight: 600;
+}
+
+.h-kondisi {
+    grid-area: kondisi;
+}
+
+.h-hujan {
+    grid-area: hujan;
+    color: var(--hujan);
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+.h-suhu {
+    grid-area: suhu;
+    font-weight: 600;
+    text-align: right;
+}
+
+.rentang {
+    grid-area: rentang;
+    position: relative;
+    height: 0.6rem;
+    background: #e3ecea;
+    border-radius: 3px;
+}
+
+.rentang span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc((var(--min) - 22) / 14 * 100%);
+    width: calc((var(--maks) - var(--min)) / 14 * 100%);
+    background: var(--suhu-bar);
+    border-radius: 3px;
+}
+
+/* ---------- 7. Peta ---------- */
+.peta {
+    margin-top: 2.5rem;
+}
+
+.peta h2 {
+    margin-bottom: 0.75rem;
+}
+
+.peta-kotak {
+    display: grid;
+    place-content: center;
+    min-height: 12rem;
+    padding: 1.5rem;
+    text-align: center;
+    background: #e4ece8;
+    border: 2px dashed var(--garis);
+    border-radius: 4px;
+}
+
+.peta-kotak p {
+    margin: 0;
+}
+
+/* ---------- 8. Laporan warga ---------- */
+.laporan {
+    margin-top: 2.5rem;
+}
+
+.laporan h2 {
+    margin-bottom: 0.75rem;
+}
+
+.banner-darurat {
+    padding: 0.75rem 1rem;
+    background: #fbe9e7;
+    border-left: 4px solid var(--sangat);
+    font-size: 0.9rem;
+}
+
+.kartu-laporan {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--kertas);
+    border: 1px solid var(--garis);
+    border-radius: 4px;
+}
+
+.foto-contoh {
+    display: grid;
+    place-items: center;
+    min-height: 7rem;
+    background: #f4f7f6;
+    border: 1px dashed var(--garis);
+    color: var(--lembut);
+}
+
+.tanda-contoh {
+    display: inline-block;
+    margin: 0 0 0.5rem;
+    padding: 0.15rem 0.5rem;
+    background: var(--sedang);
+    color: #2b2100;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 3px;
+}
+
+/* ---------- 9. Footer ---------- */
+.situs-footer {
+    margin-top: 3rem;
+    padding-block: 2rem;
+    background: var(--gambut);
+    color: #d9e6e1;
+    font-size: 0.95rem;
+}
+
+.situs-footer a {
+    color: #fff;
+}
+
+.situs-footer .meta {
+    color: #b6ccc5;
+}
+
+.situs-footer :focus-visible {
+    outline-color: #fff;
+}
+
+/* ---------- 10. Layar lebar ---------- */
+@media (min-width: 700px) {
+    .kartu-laporan {
+        grid-template-columns: 10rem 1fr;
+    }
+
+    .hari li {
+        grid-template-columns: 5rem 10rem 1fr 7rem 6rem;
+        grid-template-areas: "nama kondisi rentang suhu hujan";
+    }
+}
+
+@media (min-width: 860px) {
+    .utama-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+}

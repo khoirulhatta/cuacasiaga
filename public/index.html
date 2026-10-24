@@ -1,1 +1,258 @@
-<h1>CuacaSiaga Indonesia</h1>
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CuacaSiaga Indonesia | Cuaca dan kewaspadaan karhutla</title>
+    <meta name="description"
+        content="Cuaca, prakiraan hujan, dan indikator kewaspadaan karhutla untuk Indonesia dengan fokus Kalimantan.">
+
+    <!-- Font dari Google Fonts. Kalau gagal dimuat, browser memakai font cadangan di style.css -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/main.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ===== 1. HEADER: nama situs, menu, tombol ===== -->
+    <header class="situs-header">
+        <div class="bungkus header-isi">
+            <a class="merek" href="#beranda">CuacaSiaga Indonesia</a>
+            <nav aria-label="Menu utama">
+                <ul class="menu">
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#prakiraan">Prakiraan</a></li>
+                    <li><a href="#peta">Peta</a></li>
+                    <li><a href="#kewaspadaan">Kewaspadaan karhutla</a></li>
+                    <li><a href="#sumber">Tentang</a></li>
+                </ul>
+            </nav>
+            <div class="aksi-header">
+                <!-- Dua tombol ini baru aktif di tahap P5 (laporan warga) -->
+                <button type="button" class="tombol tombol-utama" disabled title="Tersedia di tahap berikutnya">Lapor
+                    kebakaran</button>
+                <button type="button" class="tombol" disabled title="Tersedia di tahap berikutnya">Masuk</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="beranda">
+
+        <!-- ===== 2. CATATAN DATA CONTOH ===== -->
+        <p class="catatan-data bungkus" role="note">
+            <strong>Data contoh.</strong> Tampilan ini belum terhubung ke sumber data cuaca. Angka hanya untuk
+            memperlihatkan tata letak.
+        </p>
+
+        <!-- ===== 3. PILIH LOKASI (FR-02) ===== -->
+        <section class="bungkus lokasi" aria-labelledby="judul-lokasi">
+            <h1 id="judul-lokasi" class="judul-halaman">Cuaca dan kewaspadaan karhutla</h1>
+            <div class="pilih-lokasi">
+                <label for="pilih-lokasi">Pilih lokasi</label>
+                <select id="pilih-lokasi" name="lokasi">
+                    <option value="Palangka Raya, Kalimantan Tengah" selected>Palangka Raya, Kalimantan Tengah</option>
+                    <option value="Pontianak, Kalimantan Barat">Pontianak, Kalimantan Barat</option>
+                    <option value="Banjarmasin, Kalimantan Selatan">Banjarmasin, Kalimantan Selatan</option>
+                    <option value="Samarinda, Kalimantan Timur">Samarinda, Kalimantan Timur</option>
+                    <option value="Balikpapan, Kalimantan Timur">Balikpapan, Kalimantan Timur</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- ===== 4. CUACA SAAT INI + KEWASPADAAN (FR-01, FR-06, FR-07, FR-08) ===== -->
+        <div class="bungkus utama-grid">
+
+            <section class="cuaca" aria-labelledby="judul-cuaca">
+                <h2 id="judul-cuaca">Cuaca saat ini di <span data-lokasi>Palangka Raya, Kalimantan Tengah</span></h2>
+                <p class="suhu"><span class="angka-suhu">33</span><span class="satuan-suhu">&deg;C</span></p>
+                <p class="kondisi">Cerah berawan</p>
+                <dl class="rincian">
+                    <div>
+                        <dt>Kelembapan</dt>
+                        <dd>62%</dd>
+                    </div>
+                    <div>
+                        <dt>Angin</dt>
+                        <dd>12 km/jam</dd>
+                    </div>
+                    <div>
+                        <dt>Curah hujan</dt>
+                        <dd>0 mm</dd>
+                    </div>
+                    <div>
+                        <dt>Peluang hujan</dt>
+                        <dd>10%</dd>
+                    </div>
+                </dl>
+                <p class="meta">Diperbarui: [waktu terakhir]. Sumber: Open-Meteo.</p>
+                <!-- Area pesan kesalahan (FR-10): akan terisi bila API gagal -->
+                <p class="pesan-kesalahan" hidden>Data cuaca belum bisa dimuat. Periksa koneksi internet lalu coba lagi.
+                </p>
+            </section>
+
+            <section class="waspada" id="kewaspadaan" aria-labelledby="judul-waspada">
+                <h2 id="judul-waspada">Kewaspadaan karhutla</h2>
+                <p class="kategori">Tinggi</p>
+                <p class="skor-teks">Skor 10 dari 15 poin (67%)</p>
+
+                <!-- Skala kewaspadaan: penanda digeser lewat variabel --skor (persen) -->
+                <div class="skala" style="--skor: 67" role="img"
+                    aria-label="Skala kewaspadaan: skor 67 persen, kategori Tinggi">
+                    <span class="penanda" aria-hidden="true"></span>
+                    <ul class="segmen" aria-hidden="true">
+                        <li class="s-rendah">Rendah</li>
+                        <li class="s-sedang">Sedang</li>
+                        <li class="s-tinggi">Tinggi</li>
+                        <li class="s-sangat">Sangat tinggi</li>
+                    </ul>
+                </div>
+
+                <table class="faktor">
+                    <caption>Faktor penyusun skor</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Faktor</th>
+                            <th scope="col">Kondisi</th>
+                            <th scope="col">Poin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Hari kering berturut-turut</th>
+                            <td>6 hari</td>
+                            <td>2 dari 3</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Total hujan 7 hari</th>
+                            <td>3 mm</td>
+                            <td>3 dari 3</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Suhu maksimum</th>
+                            <td>34 &deg;C</td>
+                            <td>2 dari 3</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Kelembapan</th>
+                            <td>62%</td>
+                            <td>2 dari 3</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Kecepatan angin</th>
+                            <td>12 km/jam</td>
+                            <td>1 dari 3</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="meta">Skor dihitung tanpa data hotspot. Hasil ini indikatif dan bukan peringatan resmi.</p>
+
+                <details class="penjelasan">
+                    <summary>Bagaimana skor dihitung</summary>
+                    <p>Setiap faktor diberi poin 0 sampai 3. Total poin diubah menjadi persen, lalu dikelompokkan:
+                        0&ndash;25% Rendah, 26&ndash;50% Sedang, 51&ndash;75% Tinggi, di atas 75% Sangat tinggi. Ambang
+                        tiap faktor masih berupa draf asumsi dan akan ditinjau.</p>
+                    <p>Tips pencegahan: jangan membakar lahan atau sampah di area kering, pastikan puntung rokok padam,
+                        dan segera hubungi nomor darurat setempat bila melihat api.</p>
+                </details>
+            </section>
+        </div>
+
+        <!-- ===== 5. PRAKIRAAN PER JAM DAN 7 HARI (FR-04, FR-05, FR-06) ===== -->
+        <section class="bungkus prakiraan" id="prakiraan" aria-labelledby="judul-jam">
+            <h2 id="judul-jam">Prakiraan per jam</h2>
+            <p class="petunjuk">Batang menunjukkan peluang hujan.</p>
+            <ol class="jam" tabindex="0" aria-label="Prakiraan 8 jam ke depan, dapat digeser ke samping">
+                <li><span class="j-waktu">Sekarang</span><span class="j-suhu">33&deg;</span><span class="hujan"
+                        style="--p: 10"></span><span class="j-hujan">10%</span></li>
+                <li><span class="j-waktu">15:00</span><span class="j-suhu">34&deg;</span><span class="hujan"
+                        style="--p: 10"></span><span class="j-hujan">10%</span></li>
+                <li><span class="j-waktu">16:00</span><span class="j-suhu">33&deg;</span><span class="hujan"
+                        style="--p: 20"></span><span class="j-hujan">20%</span></li>
+                <li><span class="j-waktu">17:00</span><span class="j-suhu">31&deg;</span><span class="hujan"
+                        style="--p: 30"></span><span class="j-hujan">30%</span></li>
+                <li><span class="j-waktu">18:00</span><span class="j-suhu">29&deg;</span><span class="hujan"
+                        style="--p: 40"></span><span class="j-hujan">40%</span></li>
+                <li><span class="j-waktu">19:00</span><span class="j-suhu">28&deg;</span><span class="hujan"
+                        style="--p: 30"></span><span class="j-hujan">30%</span></li>
+                <li><span class="j-waktu">20:00</span><span class="j-suhu">27&deg;</span><span class="hujan"
+                        style="--p: 20"></span><span class="j-hujan">20%</span></li>
+                <li><span class="j-waktu">21:00</span><span class="j-suhu">27&deg;</span><span class="hujan"
+                        style="--p: 10"></span><span class="j-hujan">10%</span></li>
+            </ol>
+
+            <h2 id="judul-hari">Prakiraan 7 hari</h2>
+            <ul class="hari">
+                <li><span class="h-nama">Rabu</span><span class="h-kondisi">Cerah berawan</span><span
+                        class="rentang"><span style="--min: 25; --maks: 34"></span></span><span class="h-suhu">25&deg; /
+                        34&deg;</span><span class="h-hujan">Hujan 10%</span></li>
+                <li><span class="h-nama">Kamis</span><span class="h-kondisi">Berawan</span><span class="rentang"><span
+                            style="--min: 25; --maks: 34"></span></span><span class="h-suhu">25&deg; /
+                        34&deg;</span><span class="h-hujan">Hujan 20%</span></li>
+                <li><span class="h-nama">Jumat</span><span class="h-kondisi">Hujan ringan</span><span
+                        class="rentang"><span style="--min: 24; --maks: 33"></span></span><span class="h-suhu">24&deg; /
+                        33&deg;</span><span class="h-hujan">Hujan 40%</span></li>
+                <li><span class="h-nama">Sabtu</span><span class="h-kondisi">Hujan sedang</span><span
+                        class="rentang"><span style="--min: 24; --maks: 32"></span></span><span class="h-suhu">24&deg; /
+                        32&deg;</span><span class="h-hujan">Hujan 60%</span></li>
+                <li><span class="h-nama">Minggu</span><span class="h-kondisi">Hujan lebat</span><span
+                        class="rentang"><span style="--min: 24; --maks: 31"></span></span><span class="h-suhu">24&deg; /
+                        31&deg;</span><span class="h-hujan">Hujan 70%</span></li>
+                <li><span class="h-nama">Senin</span><span class="h-kondisi">Berawan</span><span class="rentang"><span
+                            style="--min: 24; --maks: 33"></span></span><span class="h-suhu">24&deg; /
+                        33&deg;</span><span class="h-hujan">Hujan 30%</span></li>
+                <li><span class="h-nama">Selasa</span><span class="h-kondisi">Cerah berawan</span><span
+                        class="rentang"><span style="--min: 25; --maks: 34"></span></span><span class="h-suhu">25&deg; /
+                        34&deg;</span><span class="h-hujan">Hujan 20%</span></li>
+            </ul>
+        </section>
+
+        <!-- ===== 6. PETA HOTSPOT (FR-12, fitur Should) ===== -->
+        <section class="bungkus peta" id="peta" aria-labelledby="judul-peta">
+            <h2 id="judul-peta">Peta hotspot</h2>
+            <div class="peta-kotak" role="img" aria-label="Tempat peta hotspot Kalimantan">
+                <p>Peta hotspot Kalimantan akan tampil di sini.</p>
+                <p class="meta">Fitur sebaiknya ada (Should), dikerjakan di tahap P3 bila waktu cukup.</p>
+            </div>
+        </section>
+
+        <!-- ===== 7. LAPORAN WARGA (FR-19, FR-23; contoh statis) ===== -->
+        <section class="bungkus laporan" id="laporan" aria-labelledby="judul-laporan">
+            <h2 id="judul-laporan">Laporan warga terbaru</h2>
+            <p class="banner-darurat">
+                Laporan warga belum dikonfirmasi petugas. Jika api membahayakan, segera hubungi [nomor darurat atau BPBD
+                setempat]. Laporan di sini bukan pengganti panggilan darurat.
+            </p>
+            <article class="kartu-laporan">
+                <div class="foto-contoh" aria-hidden="true">Foto bukti</div>
+                <div class="isi-laporan">
+                    <p class="tanda-contoh">CONTOH / DEMO</p>
+                    <h3>[Nama lokasi contoh]</h3>
+                    <p>Laporan contoh untuk memperlihatkan tampilan. Bukan kejadian nyata.</p>
+                    <p class="meta">[Waktu kejadian] &middot; Status: Terverifikasi (contoh)</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <!-- ===== 8. FOOTER: sumber data dan disclaimer (FR-09) ===== -->
+    <footer class="situs-footer" id="sumber">
+        <div class="bungkus">
+            <p><strong>Sumber data (rencana):</strong> data cuaca dari <a
+                    href="https://open-meteo.com/">Open-Meteo.com</a>, pembanding BMKG, hotspot NASA FIRMS (opsional),
+                peta OpenStreetMap.</p>
+            <p>Informasi ini bersifat indikatif dan bukan peringatan resmi. Rujukan resmi: BMKG dan Kementerian
+                Kehutanan (SiPongi+).</p>
+            <p class="meta">Proyek pembelajaran mata kuliah Rekayasa Perangkat Lunak. Nonkomersial.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
