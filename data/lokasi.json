@@ -1,32 +1,107 @@
 [
     {
+        "id": "palangka-raya",
         "nama": "Palangka Raya",
         "provinsi": "Kalimantan Tengah",
         "lat": -2.21,
         "lon": 113.92
     },
     {
+        "id": "sampit",
+        "nama": "Sampit",
+        "provinsi": "Kalimantan Tengah",
+        "lat": -2.53,
+        "lon": 112.95
+    },
+    {
+        "id": "pangkalan-bun",
+        "nama": "Pangkalan Bun",
+        "provinsi": "Kalimantan Tengah",
+        "lat": -2.68,
+        "lon": 111.62
+    },
+    {
+        "id": "kuala-kapuas",
+        "nama": "Kuala Kapuas",
+        "provinsi": "Kalimantan Tengah",
+        "lat": -3.00,
+        "lon": 114.38
+    },
+    {
+        "id": "pontianak",
         "nama": "Pontianak",
         "provinsi": "Kalimantan Barat",
-        "lat": -0.02,
+        "lat": -0.03,
         "lon": 109.34
     },
     {
+        "id": "singkawang",
+        "nama": "Singkawang",
+        "provinsi": "Kalimantan Barat",
+        "lat": 0.91,
+        "lon": 108.98
+    },
+    {
+        "id": "ketapang",
+        "nama": "Ketapang",
+        "provinsi": "Kalimantan Barat",
+        "lat": -1.87,
+        "lon": 109.98
+    },
+    {
+        "id": "sintang",
+        "nama": "Sintang",
+        "provinsi": "Kalimantan Barat",
+        "lat": 0.07,
+        "lon": 111.49
+    },
+    {
+        "id": "banjarmasin",
         "nama": "Banjarmasin",
         "provinsi": "Kalimantan Selatan",
         "lat": -3.32,
         "lon": 114.59
     },
     {
-        "nama": "Samarinda",
-        "provinsi": "Kalimantan Timur",
-        "lat": -0.50,
-        "lon": 117.15
+        "id": "banjarbaru",
+        "nama": "Banjarbaru",
+        "provinsi": "Kalimantan Selatan",
+        "lat": -3.46,
+        "lon": 114.81
     },
     {
+        "id": "samarinda",
+        "nama": "Samarinda",
+        "provinsi": "Kalimantan Timur",
+        "lat": -0.49,
+        "lon": 117.14
+    },
+    {
+        "id": "balikpapan",
         "nama": "Balikpapan",
         "provinsi": "Kalimantan Timur",
         "lat": -1.24,
-        "lon": 116.83
+        "lon": 116.85
+    },
+    {
+        "id": "bontang",
+        "nama": "Bontang",
+        "provinsi": "Kalimantan Timur",
+        "lat": 0.13,
+        "lon": 117.50
+    },
+    {
+        "id": "tarakan",
+        "nama": "Tarakan",
+        "provinsi": "Kalimantan Utara",
+        "lat": 3.30,
+        "lon": 117.63
+    },
+    {
+        "id": "tanjung-selor",
+        "nama": "Tanjung Selor",
+        "provinsi": "Kalimantan Utara",
+        "lat": 2.84,
+        "lon": 117.37
     }
 ]
