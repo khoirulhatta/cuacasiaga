@@ -59,10 +59,11 @@ def ambil_cuaca_mentah(lat, lon):
         "latitude": lat,
         "longitude": lon,
         "current": "temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m",
-        "hourly": "temperature_2m,precipitation_probability,precipitation",
-        "daily": "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum",
+        "hourly": "temperature_2m,precipitation_probability,precipitation,relative_humidity_2m",
+        "daily": "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max",
         "timezone": "auto",
         "forecast_days": 7,
+        "past_days": 7,   # 7 hari ke belakang, dipakai untuk menghitung hari kering dan total hujan
     }
     try:
         r = requests.get(URL, params=params, timeout=TIMEOUT_DETIK)
@@ -87,6 +88,15 @@ def indeks_jam_sekarang(mentah):
         if t[:13] == jam_ini:
             return i
     return 0
+
+
+def indeks_hari_ini(mentah):
+    """Posisi tanggal hari ini di dalam daftar harian (daftar mulai dari 7 hari yang lalu)."""
+    hari_ini = mentah["current"]["time"][:10]
+    try:
+        return mentah["daily"]["time"].index(hari_ini)
+    except ValueError:
+        return 0
 
 
 def ringkas_saat_ini(mentah):
@@ -119,7 +129,9 @@ def ringkas_prakiraan(mentah, jumlah_jam=48):
             "curah_hujan": _ambil(h.get("precipitation"), i),
         })
     per_hari = []
-    for i, tanggal in enumerate(d["time"]):
+    mulai_hari = indeks_hari_ini(mentah)
+    for i in range(mulai_hari, min(mulai_hari + 7, len(d["time"]))):
+        tanggal = d["time"][i]
         kode = _ambil(d.get("weather_code"), i)
         per_hari.append({
             "tanggal": tanggal,

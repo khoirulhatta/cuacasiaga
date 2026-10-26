@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 from flask import Flask, jsonify, request
 
 from services import open_meteo as om
+from services import risiko
 from services.cache import TTLCache
 
 # static_folder="public": saat dijalankan lokal, Flask menampilkan isi folder public
@@ -54,7 +55,10 @@ def jawab_cuaca(ringkas):
         paket, dari_cache = ambil_data_cuaca(lat, lon)
     except om.GagalAmbilData:
         return jsonify({"error": "Data cuaca belum bisa dimuat. Coba lagi beberapa saat."}), 502
-    hasil = ringkas(paket["data"])
+    try:
+        hasil = ringkas(paket["data"])
+    except risiko.DataTidakCukup:
+        return jsonify({"error": "Data cuaca belum cukup untuk menghitung kewaspadaan karhutla."}), 502
     hasil.update({
         "lokasi": {"lat": lat, "lon": lon},
         "diperbarui": paket["diperbarui"],
@@ -87,6 +91,11 @@ def weather():
 @app.get("/api/forecast")
 def forecast():
     return jawab_cuaca(om.ringkas_prakiraan)
+
+
+@app.get("/api/fire-risk")
+def fire_risk():
+    return jawab_cuaca(risiko.hitung_kewaspadaan)
 
 
 if __name__ == "__main__":

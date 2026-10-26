@@ -676,3 +676,38 @@ a {
 .waspada .tanda-contoh {
     margin-bottom: 0.75rem;
 }
+
+/* ---------- 12. Tambahan P3: warna kategori kewaspadaan ---------- */
+.kategori[data-tingkat="rendah"] {
+    color: #2c6b42;
+}
+
+.kategori[data-tingkat="sedang"] {
+    color: #8a6600;
+}
+
+.kategori[data-tingkat="tinggi"] {
+    color: #a9500f;
+}
+
+.kategori[data-tingkat="sangat-tinggi"] {
+    color: #a12a25;
+}
+
+.waspada .pesan-kesalahan {
+    margin-bottom: 1rem;
+}
+
+.skala .penanda {
+    transition: left 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skala .penanda {
+        transition: none;
+    }
+}
+
+.tanda-contoh[hidden] {
+    display: none;
+}

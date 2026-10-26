@@ -1,4 +1,4 @@
-// main.js - P2 langkah 2: mengambil data dari backend Flask lalu menampilkannya.
+// main.js - P2 dan P3: mengambil data dari backend Flask lalu menampilkannya.
 // Alur: halaman terbuka -> ambil daftar lokasi -> ambil cuaca + prakiraan -> tampilkan.
 
 // Dipakai bila daftar lokasi dari server gagal dimuat
@@ -84,6 +84,35 @@ function tampilkanPerHari(daftar) {
     });
 }
 
+function tampilkanKewaspadaan(d) {
+    const tingkat = d.kategori.toLowerCase().replace(' ', '-');   // "Sangat tinggi" -> "sangat-tinggi"
+    $('kategori').textContent = d.kategori;
+    $('kategori').dataset.tingkat = tingkat;                       // CSS memilih warna dari atribut ini
+    $('skor-teks').textContent = 'Skor ' + d.skor + ' dari ' + d.skor_maks + ' poin (' + d.persen + '%)';
+    $('skala').style.setProperty('--skor', d.persen);              // menggeser penanda pada skala
+    $('skala').setAttribute('aria-label', 'Skala kewaspadaan: skor ' + d.persen + ' persen, kategori ' + d.kategori);
+
+    const badan = $('badan-faktor');
+    badan.replaceChildren();
+    d.faktor.forEach(function (f) {
+        const tr = buat('tr');
+        const nama = buat('th', '', f.nama);
+        nama.scope = 'row';
+        const nilai = f.satuan === '%' ? f.nilai + '%' : f.nilai + ' ' + f.satuan;
+        tr.append(nama, buat('td', '', nilai), buat('td', '', f.poin + ' dari ' + f.poin_maks));
+        badan.append(tr);
+    });
+    $('catatan-waspada').textContent = d.catatan.join(' ') + ' ' + d.disclaimer;
+    $('tanda-contoh-waspada').hidden = true;
+    $('kesalahan-waspada').hidden = true;
+}
+
+function tampilkanKesalahanWaspada(pesan) {
+    $('kesalahan-waspada').textContent = pesan;
+    $('kesalahan-waspada').hidden = false;
+    $('tanda-contoh-waspada').hidden = false;
+}
+
 function tampilkanKesalahan(pesan) {
     $('teks-kesalahan').textContent = pesan;
     $('pesan-kesalahan').hidden = false;
@@ -93,7 +122,7 @@ function tampilkanKesalahan(pesan) {
 // ---------- Memuat data satu lokasi ----------
 async function muatData(lokasi) {
     const nomor = ++permintaanTerakhir;
-    const bagian = document.querySelectorAll('.cuaca, .prakiraan');
+    const bagian = document.querySelectorAll('.cuaca, .prakiraan, .waspada');
     bagian.forEach(function (b) { b.classList.add('memuat'); });
     $('status').textContent = 'Memuat data cuaca...';
     $('pesan-kesalahan').hidden = true;
@@ -103,12 +132,24 @@ async function muatData(lokasi) {
     try {
         const cuaca = await ambilJSON('/api/weather?' + kueri);
         const prakiraan = await ambilJSON('/api/forecast?' + kueri);   // berurutan agar memakai cache
+        let risiko = null, galatRisiko = null;
+        try {
+            risiko = await ambilJSON('/api/fire-risk?' + kueri);          // juga memakai cache
+        } catch (e) {
+            galatRisiko = e;                                              // kegagalan skor tidak menggagalkan cuaca
+        }
         if (nomor !== permintaanTerakhir) return;                      // ada permintaan yang lebih baru
         tampilkanCuaca(cuaca);
         tampilkanPerJam(prakiraan.per_jam);
         tampilkanPerHari(prakiraan.per_hari);
+        if (risiko) {
+            tampilkanKewaspadaan(risiko);
+            $('catatan-isi').textContent = 'Cuaca, prakiraan, dan kewaspadaan karhutla dihitung dari data Open-Meteo. Ambang skor masih draf asumsi.';
+        } else {
+            tampilkanKesalahanWaspada('Kewaspadaan karhutla belum bisa dihitung: ' + galatRisiko.message);
+            $('catatan-isi').textContent = 'Cuaca dan prakiraan berasal dari Open-Meteo. Kewaspadaan karhutla belum tersedia untuk lokasi ini.';
+        }
         $('catatan-judul').textContent = 'Data cuaca nyata.';
-        $('catatan-isi').textContent = 'Cuaca, prakiraan per jam, dan prakiraan 7 hari berasal dari Open-Meteo. Bagian kewaspadaan karhutla masih contoh dan dihitung di tahap berikutnya.';
         $('status').textContent = '';
     } catch (e) {
         if (nomor !== permintaanTerakhir) return;

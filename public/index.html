@@ -105,12 +105,13 @@
 
             <section class="waspada" id="kewaspadaan" aria-labelledby="judul-waspada">
                 <h2 id="judul-waspada">Kewaspadaan karhutla</h2>
-                <p class="tanda-contoh">CONTOH: skor dihitung di tahap P3</p>
-                <p class="kategori">Tinggi</p>
-                <p class="skor-teks">Skor 10 dari 15 poin (67%)</p>
+                <p class="tanda-contoh" id="tanda-contoh-waspada">CONTOH: belum dihitung dari data nyata</p>
+                <p class="pesan-kesalahan" id="kesalahan-waspada" role="alert" hidden></p>
+                <p class="kategori" id="kategori" data-tingkat="tinggi">Tinggi</p>
+                <p class="skor-teks" id="skor-teks">Skor 10 dari 15 poin (67%)</p>
 
                 <!-- Skala kewaspadaan: penanda digeser lewat variabel --skor (persen) -->
-                <div class="skala" style="--skor: 67" role="img"
+                <div class="skala" id="skala" style="--skor: 67" role="img"
                     aria-label="Skala kewaspadaan: skor 67 persen, kategori Tinggi">
                     <span class="penanda" aria-hidden="true"></span>
                     <ul class="segmen" aria-hidden="true">
@@ -130,7 +131,7 @@
                             <th scope="col">Poin</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="badan-faktor">
                         <tr>
                             <th scope="row">Hari kering berturut-turut</th>
                             <td>6 hari</td>
@@ -158,7 +159,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="meta">Skor dihitung tanpa data hotspot. Hasil ini indikatif dan bukan peringatan resmi.</p>
+                <p class="meta" id="catatan-waspada">Skor dihitung tanpa data hotspot. Hasil ini indikatif dan bukan
+                    peringatan resmi.</p>
 
                 <details class="penjelasan">
                     <summary>Bagaimana skor dihitung</summary>
