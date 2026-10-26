@@ -47,8 +47,9 @@
 
         <!-- ===== 2. CATATAN DATA CONTOH ===== -->
         <p class="catatan-data bungkus" role="note">
-            <strong>Data contoh.</strong> Tampilan ini belum terhubung ke sumber data cuaca. Angka hanya untuk
-            memperlihatkan tata letak.
+            <strong id="catatan-judul">Data contoh.</strong>
+            <span id="catatan-isi">Tampilan ini belum terhubung ke sumber data cuaca. Angka hanya untuk memperlihatkan
+                tata letak.</span>
         </p>
 
         <!-- ===== 3. PILIH LOKASI (FR-02) ===== -->
@@ -64,6 +65,8 @@
                     <option value="Balikpapan, Kalimantan Timur">Balikpapan, Kalimantan Timur</option>
                 </select>
             </div>
+            <!-- Status pemuatan; dibaca pembaca layar karena aria-live -->
+            <p id="status" class="status" role="status" aria-live="polite"></p>
         </section>
 
         <!-- ===== 4. CUACA SAAT INI + KEWASPADAAN (FR-01, FR-06, FR-07, FR-08) ===== -->
@@ -71,34 +74,38 @@
 
             <section class="cuaca" aria-labelledby="judul-cuaca">
                 <h2 id="judul-cuaca">Cuaca saat ini di <span data-lokasi>Palangka Raya, Kalimantan Tengah</span></h2>
-                <p class="suhu"><span class="angka-suhu">33</span><span class="satuan-suhu">&deg;C</span></p>
-                <p class="kondisi">Cerah berawan</p>
+                <p class="suhu"><span class="angka-suhu" id="suhu">33</span><span class="satuan-suhu">&deg;C</span></p>
+                <p class="kondisi" id="kondisi">Cerah berawan</p>
                 <dl class="rincian">
                     <div>
                         <dt>Kelembapan</dt>
-                        <dd>62%</dd>
+                        <dd id="kelembapan">62%</dd>
                     </div>
                     <div>
                         <dt>Angin</dt>
-                        <dd>12 km/jam</dd>
+                        <dd id="angin">12 km/jam</dd>
                     </div>
                     <div>
                         <dt>Curah hujan</dt>
-                        <dd>0 mm</dd>
+                        <dd id="curah">0 mm</dd>
                     </div>
                     <div>
                         <dt>Peluang hujan</dt>
-                        <dd>10%</dd>
+                        <dd id="peluang">10%</dd>
                     </div>
                 </dl>
-                <p class="meta">Diperbarui: [waktu terakhir]. Sumber: Open-Meteo.</p>
+                <p class="meta" id="meta-cuaca">Diperbarui: [waktu terakhir]. Sumber: Open-Meteo.</p>
                 <!-- Area pesan kesalahan (FR-10): akan terisi bila API gagal -->
-                <p class="pesan-kesalahan" hidden>Data cuaca belum bisa dimuat. Periksa koneksi internet lalu coba lagi.
+                <p class="pesan-kesalahan" id="pesan-kesalahan" role="alert" hidden>
+                    <span id="teks-kesalahan">Data cuaca belum bisa dimuat. Periksa koneksi internet lalu coba
+                        lagi.</span>
+                    <button type="button" id="coba-lagi" class="tombol-kecil">Coba lagi</button>
                 </p>
             </section>
 
             <section class="waspada" id="kewaspadaan" aria-labelledby="judul-waspada">
                 <h2 id="judul-waspada">Kewaspadaan karhutla</h2>
+                <p class="tanda-contoh">CONTOH: skor dihitung di tahap P3</p>
                 <p class="kategori">Tinggi</p>
                 <p class="skor-teks">Skor 10 dari 15 poin (67%)</p>
 
@@ -168,7 +175,8 @@
         <section class="bungkus prakiraan" id="prakiraan" aria-labelledby="judul-jam">
             <h2 id="judul-jam">Prakiraan per jam</h2>
             <p class="petunjuk">Batang menunjukkan peluang hujan.</p>
-            <ol class="jam" tabindex="0" aria-label="Prakiraan 8 jam ke depan, dapat digeser ke samping">
+            <ol class="jam" id="daftar-jam" tabindex="0"
+                aria-label="Prakiraan 8 jam ke depan, dapat digeser ke samping">
                 <li><span class="j-waktu">Sekarang</span><span class="j-suhu">33&deg;</span><span class="hujan"
                         style="--p: 10"></span><span class="j-hujan">10%</span></li>
                 <li><span class="j-waktu">15:00</span><span class="j-suhu">34&deg;</span><span class="hujan"
@@ -188,7 +196,7 @@
             </ol>
 
             <h2 id="judul-hari">Prakiraan 7 hari</h2>
-            <ul class="hari">
+            <ul class="hari" id="daftar-hari">
                 <li><span class="h-nama">Rabu</span><span class="h-kondisi">Cerah berawan</span><span
                         class="rentang"><span style="--min: 25; --maks: 34"></span></span><span class="h-suhu">25&deg; /
                         34&deg;</span><span class="h-hujan">Hujan 10%</span></li>
@@ -244,9 +252,8 @@
     <!-- ===== 8. FOOTER: sumber data dan disclaimer (FR-09) ===== -->
     <footer class="situs-footer" id="sumber">
         <div class="bungkus">
-            <p><strong>Sumber data (rencana):</strong> data cuaca dari <a
-                    href="https://open-meteo.com/">Open-Meteo.com</a>, pembanding BMKG, hotspot NASA FIRMS (opsional),
-                peta OpenStreetMap.</p>
+            <p><strong>Sumber data:</strong> <a href="https://open-meteo.com/">Weather data by Open-Meteo.com</a>.
+                Rencana: pembanding BMKG, hotspot NASA FIRMS (opsional), peta OpenStreetMap.</p>
             <p>Informasi ini bersifat indikatif dan bukan peringatan resmi. Rujukan resmi: BMKG dan Kementerian
                 Kehutanan (SiPongi+).</p>
             <p class="meta">Proyek pembelajaran mata kuliah Rekayasa Perangkat Lunak. Nonkomersial.</p>

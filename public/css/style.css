@@ -647,3 +647,32 @@ a {
         align-items: start;
     }
 }
+
+/* ---------- 11. Tambahan P2: status, pemuatan, tombol coba lagi ---------- */
+.status {
+    min-height: 1.5rem;
+    margin: 0.5rem 0 0;
+    color: var(--lembut);
+    font-size: 0.9rem;
+}
+
+.memuat {
+    opacity: 0.55;
+}
+
+.tombol-kecil {
+    margin-left: 0.75rem;
+    min-height: 36px;
+    padding: 0 0.9rem;
+    border: 1.5px solid var(--sangat);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--sangat);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.waspada .tanda-contoh {
+    margin-bottom: 0.75rem;
+}
